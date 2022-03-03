@@ -52,7 +52,9 @@ export function submitRegister(data) {
             mode: 'cors'
         }).then((response) => {
             if (!response.ok) {
-                throw Error(response.statusText);
+                response.json().then(json => {
+                    console.log(json);
+                })
             }
             return response.json()
         }).then((res) => {
