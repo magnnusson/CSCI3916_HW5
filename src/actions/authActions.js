@@ -27,7 +27,9 @@ export function submitLogin(data) {
             mode: 'cors'
         }).then((response) => {
             if (!response.ok) {
-                throw Error(response.statusText);
+                response.json().then(json => { // sending back the json response from the server, will need to populate a field in UI
+                    console.log(json);
+                })
             }
             return response.json()
         }).then((res) => {
@@ -52,7 +54,7 @@ export function submitRegister(data) {
             mode: 'cors'
         }).then((response) => {
             if (!response.ok) {
-                response.json().then(json => {
+                response.json().then(json => { // sending back the json response from the server, will need to populate a field in UI
                     console.log(json);
                 })
             }
