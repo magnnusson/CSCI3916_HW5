@@ -29,10 +29,12 @@ class MovieDetail extends Component {
                     <ListGroup>
                         <ListGroupItem>{this.props.selectedMovie.title}</ListGroupItem>
                         <ListGroupItem>
-                            {this.props.selectedMovie.actors.map((actor, i) =>
-                                <p key={i}>
-                                    <b>{actor[0].actorName}</b> {actor[0].charName}
-                                </p>)}
+                            {this.props.selectedMovie.actors.map((actor, i) => {
+                            console.log(actor);
+                               return (<p key={i}>
+                                    <b>{actor.actorName}</b> {actor.charName}
+                                </p>);
+                                 })}
                         </ListGroupItem>
                         <ListGroupItem><h4><BsStarFill/> {this.props.selectedMovie.avgRating}</h4></ListGroupItem>
                     </ListGroup>

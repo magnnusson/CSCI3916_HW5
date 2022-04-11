@@ -44,9 +44,10 @@ export function fetchMovie(title) {
             if (!response.ok) {
                 throw Error(response.statusText);
             }
+            //console.log("response.json", response.json());
             return response.json()
         }).then((res) => {
-            dispatch(movieFetched(res));
+            dispatch(movieFetched(res[0]));
         }).catch((e) => console.log(e));
     }
 }
