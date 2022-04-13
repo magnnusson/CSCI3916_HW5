@@ -23,11 +23,19 @@ function movieSet(movie) {
     }
 }
 
+export function reviewSet(review) {
+    return {
+        type: actionTypes.SET_REVIEW,
+        review: review
+    }
+}
+
 export function setMovie(movie) {
     return dispatch => {
         dispatch(movieSet(movie));
     }
 }
+
 
 export function fetchMovie(title) {
     const env = runtimeEnv();
@@ -70,6 +78,36 @@ export function fetchMovies() {
             return response.json()
         }).then((res) => {
             dispatch(moviesFetched(res));
+        }).catch((e) => console.log(e));
+    }
+}
+
+export function submitReview(data) {
+    const env = runtimeEnv();
+    return dispatch => {
+        return fetch(`${env.REACT_APP_API_URL}/review`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.getItem('token')
+            },
+            body: JSON.stringify(data),
+            mode: 'cors'
+        }).then((response) => {
+            console.log("response", response);
+            if (!response.ok) {
+                throw Error(response.statusText);
+            }
+            return response.json()
+        }).then((res) => {
+            console.log("response", res);
+            dispatch(reviewSet(res));
+            localStorage.setItem('movieID', data.movieID);
+            localStorage.setItem('name', data.name);
+            localStorage.setItem('review', data.quote);
+            localStorage.setItem('rating', data.rating);
+            dispatch(fetchMovie(data.movieID));
         }).catch((e) => console.log(e));
     }
 }
