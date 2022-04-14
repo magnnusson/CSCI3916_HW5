@@ -11,11 +11,11 @@ class MovieDetail extends Component {
 
         this.updateDetails = this.updateDetails.bind(this);
         this.submit = this.submit.bind(this);
-        this.updateRating = this.updateRating.bind(this);
+        this.updateRating = this.updateRating.bind(this)
         this.state = {
             details:{
-                movieID: this.props.selectedMovie.title,
-                name: localStorage.getItem('username'),
+                movieID: localStorage.getItem('username'),
+                name: '',
                 quote: '',
                 rating: ''
             }
@@ -90,15 +90,15 @@ class MovieDetail extends Component {
                             </Form.Group>
 
                             <Form.Group controlId="rating">
-                               <div key={'inline-radio'}>
-                                   <Form.Label> Rate the Movie: &nbsp;
-                                       <Form.Check onChange={this.updateRating} inline label="1" name="rating" type="radio" value={1}/>
-                                       <Form.Check onChange={this.updateRating} inline label="2" name="rating" type="radio" value={2}/>
-                                       <Form.Check onChange={this.updateRating} inline label="3" name="rating" type="radio" value={3}/>
-                                       <Form.Check onChange={this.updateRating} inline label="4" name="rating" type="radio" value={4}/>
-                                       <Form.Check onChange={this.updateRating} inline label="5" name="rating" type="radio" value={5}/>
-                                  Stars </Form.Label>
-                               </div>
+                                <div key={'inline-radio'}>
+                                    <Form.Label> Rate the Movie: &nbsp;
+                                        <Form.Check onChange={this.updateRating} inline label="1" name="rating" type="radio" value={1}/>
+                                        <Form.Check onChange={this.updateRating} inline label="2" name="rating" type="radio" value={2}/>
+                                        <Form.Check onChange={this.updateRating} inline label="3" name="rating" type="radio" value={3}/>
+                                        <Form.Check onChange={this.updateRating} inline label="4" name="rating" type="radio" value={4}/>
+                                        <Form.Check onChange={this.updateRating} inline label="5" name="rating" type="radio" value={5}/>
+                                        Stars </Form.Label>
+                                </div>
                             </Form.Group>
                             {console.log("movie", this.state.details.movieID)}
                             {console.log("name", this.state.details.name)}
