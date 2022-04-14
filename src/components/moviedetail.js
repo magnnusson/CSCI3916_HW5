@@ -11,10 +11,11 @@ class MovieDetail extends Component {
 
         this.updateDetails = this.updateDetails.bind(this);
         this.submit = this.submit.bind(this);
+        this.updateRating = this.updateRating.bind(this);
         this.state = {
             details:{
                 movieID: this.props.selectedMovie.title,
-                name: '',
+                name: localStorage.getItem('username'),
                 quote: '',
                 rating: ''
             }
@@ -40,6 +41,15 @@ class MovieDetail extends Component {
     submit(){
         const {dispatch} = this.props;
         dispatch(submitReview(this.state.details));
+    }
+
+    updateRating(rating){
+        let updateDetails = Object.assign({}, this.state.details);
+
+        updateDetails.rating = rating.target.value;
+        this.setState({
+            details: updateDetails
+        });
     }
 
     render() {
@@ -74,19 +84,21 @@ class MovieDetail extends Component {
                             </p>
                         )}
                         <Form className='form-horizontal'>
-                            <Form.Group controlId="name">
-                                <Form.Label>Name:</Form.Label>
-                                <Form.Control onChange={this.updateDetails} value={this.state.details.name} type="text" placeholder="Name" />
-                            </Form.Group>
-
                             <Form.Group controlId="quote">
                                 <Form.Label>Leave a Review:</Form.Label>
                                 <Form.Control onChange={this.updateDetails} value={this.state.details.quote} type="text" placeholder="Review" />
                             </Form.Group>
 
                             <Form.Group controlId="rating">
-                                <Form.Label>Your Rating:</Form.Label>
-                                <Form.Control onChange={this.updateDetails} value={this.state.details.rating} type="text" placeholder="Rating" />
+                               <div key={'inline-radio'}>
+                                   <Form.Label> Rate the Movie: &nbsp;
+                                       <Form.Check onChange={this.updateRating} inline label="1" name="rating" type="radio" value={1}/>
+                                       <Form.Check onChange={this.updateRating} inline label="2" name="rating" type="radio" value={2}/>
+                                       <Form.Check onChange={this.updateRating} inline label="3" name="rating" type="radio" value={3}/>
+                                       <Form.Check onChange={this.updateRating} inline label="4" name="rating" type="radio" value={4}/>
+                                       <Form.Check onChange={this.updateRating} inline label="5" name="rating" type="radio" value={5}/>
+                                  Stars </Form.Label>
+                               </div>
                             </Form.Group>
                             {console.log("movie", this.state.details.movieID)}
                             {console.log("name", this.state.details.name)}
